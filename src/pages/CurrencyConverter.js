@@ -1,10 +1,10 @@
-import img from '../assets/images/money.png'
+import img from '../assets/images/money.png';
 
-/* eslint-disable react-hooks/exhaustive-deps */
-import { useCurrencyConverterGlobalContext } from '../context/CurrencyConverterContext';
+import useCurrencyConverter from './../hooks/use-currency-converter';
 
 import { CURRENCIES_1, CURRENCIES_2 } from '../constants/currencies';
-import {Button} from './../components';
+
+import { Button, Currency } from './../components';
 
 const CurrencyConverter = () => {
   const {
@@ -20,44 +20,43 @@ const CurrencyConverter = () => {
     handleCurrencyOneChange,
     handleSwapClick,
     handleClearClick,
-  } = useCurrencyConverterGlobalContext();
+  } = useCurrencyConverter();
 
   return (
     <>
-    <img src={img} alt="money-img" className="money-img"/>
-      <h1>מחשבון המרת מטבע</h1>      
+      <img src={img} alt="money-img" className="money-img" />
+      <h1>מחשבון המרת מטבע</h1>
       <p>יש לבחור את המטבע ואת הסכום כדי לקבל את ערך ההמרה</p>
-      
+
       <div className="container">
-        
-        <div className="currency">
-          <select id="currency-one" value={currencyOne} onChange={handleCurrencyOneChange}>
-            {CURRENCIES_1.map((currency) => (
-              <option key={currency.value} value={currency.value}>{currency.value}</option>
-            ))}
-          </select>
-          <input type="number" id="amount-one" value={inputOneRef.current} ref={inputOneRef} onChange={handleAmountOneChange} placeholder="0" />
-        </div>
+        <Currency
+          currencies={CURRENCIES_1}
+          currency={currencyOne}
+          handleSelectOnChange={handleCurrencyOneChange}
+          value={inputOneRef.current}
+          inputRef={inputOneRef}
+          handleInputOnChange={handleAmountOneChange}
+        />
 
         <div className="swap-rate-container">
           <Button clickHandler={handleSwapClick}>
             החלפה
-          </Button>          
+          </Button>
           <div className="rate" id="rate" dir="ltr">{rate}</div>
         </div>
 
-        <div className="currency">
-          <select id="currency-two" value={currencyTwo} onChange={(e) => setCurrencyTwo(e.target.value)}>
-            {CURRENCIES_2.map((currency) => (
-              <option key={currency.value} value={currency.value}>{currency.value}</option>
-            ))}
-          </select>
-          <input type="number" id="amount-two" value={inputTwo} onChange={handleAmountTwoChange} placeholder="0" />
-        </div>
-        <Button className={`btn-transparent ${show && 'show'}`} clickHandler={handleClearClick} >ניקוי</Button>        
+        <Currency
+          currency={currencyTwo}
+          handleSelectOnChange={(e) => setCurrencyTwo(e.target.value)}
+          currencies={CURRENCIES_2}
+          value={inputTwo}
+          handleInputOnChange={handleAmountTwoChange}
+        />
+        
+        <Button className={`btn-transparent ${show && 'show'}`} clickHandler={handleClearClick} >ניקוי</Button>
       </div>
-      </>
-  )
-}
+    </>
+  );
+};
 
-export default CurrencyConverter
+export default CurrencyConverter;

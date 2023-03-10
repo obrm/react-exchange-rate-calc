@@ -1,9 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useState, useEffect, useRef, createContext, useContext } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
-const CurrencyConverterContext = createContext();
-
-const CurrencyConverterProvider = ({ children }) => {
+const useCurrencyConverter = () => { 
   const [currencyOne, setCurrencyOne] = useState('USD');
   const [currencyTwo, setCurrencyTwo] = useState('ILS');
   const [inputTwo, setInputTwo] = useState('');
@@ -44,6 +42,7 @@ const CurrencyConverterProvider = ({ children }) => {
   const handleClearClick = () => {
     inputOneRef.current = '';
     setInputTwo('');
+    setShow(false);
   };
 
   const calculate = async () => {
@@ -54,9 +53,7 @@ const CurrencyConverterProvider = ({ children }) => {
     setInputTwo((Number(inputOneRef.current) * curr2Rate).toFixed(2));
   };
 
-  return (
-    <CurrencyConverterContext.Provider
-      value={{
+  return {
         currencyOne,
         currencyTwo,
         inputTwo,
@@ -69,16 +66,7 @@ const CurrencyConverterProvider = ({ children }) => {
         handleCurrencyOneChange,
         handleSwapClick,
         handleClearClick,
-      }}
-    >
-      {children}
-    </CurrencyConverterContext.Provider>
-  );
-
+      }
 };
 
-export const useCurrencyConverterGlobalContext = () => {
-  return useContext(CurrencyConverterContext);
-};
-
-export { CurrencyConverterProvider };
+export default useCurrencyConverter;
