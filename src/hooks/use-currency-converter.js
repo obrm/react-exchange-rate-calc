@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect, useRef } from 'react';
 
-import calculateCurrency from '../utils/calculateCurrency';
+import { API_URL } from '../constants/api_url'
 
 const useCurrencyConverter = () => {
   const [currencyOne, setCurrencyOne] = useState('USD');
@@ -48,9 +48,11 @@ const useCurrencyConverter = () => {
   };
 
   const calculate = async () => {
-    const { rateStr, valueTwo } = await calculateCurrency(currencyOne, currencyTwo, inputOneRef.current);
-    setRate(rateStr);
-    setInputTwo(valueTwo);
+    const res = await fetch(`${API_URL}${currencyOne}`);
+    const data = await res.json();
+    const curr2Rate = data.rates[currencyTwo];
+    setRate(`1 ${currencyOne} = ${curr2Rate} ${currencyTwo}`);
+    setInputTwo((Number(inputOneRef.current) * curr2Rate).toFixed(2));
   };
 
   return {
