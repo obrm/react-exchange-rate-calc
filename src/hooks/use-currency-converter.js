@@ -1,6 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect, useRef } from 'react';
 
+import calculateCurrency from '../utils/calculateCurrency';
+
 const useCurrencyConverter = () => {
   const [currencyOne, setCurrencyOne] = useState('USD');
   const [currencyTwo, setCurrencyTwo] = useState('ILS');
@@ -46,11 +48,9 @@ const useCurrencyConverter = () => {
   };
 
   const calculate = async () => {
-    const res = await fetch(`https://open.exchangerate-api.com/v6/latest/${currencyOne}`);
-    const data = await res.json();
-    const curr2Rate = data.rates[currencyTwo];
-    setRate(`1 ${currencyOne} = ${curr2Rate} ${currencyTwo}`);
-    setInputTwo((Number(inputOneRef.current) * curr2Rate).toFixed(2));
+    const { rateStr, valueTwo } = await calculateCurrency(currencyOne, currencyTwo, inputOneRef.current);
+    setRate(rateStr);
+    setInputTwo(valueTwo);
   };
 
   return {
