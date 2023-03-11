@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect, useRef } from 'react';
 
-const useCurrencyConverter = () => { 
+const useCurrencyConverter = () => {
   const [currencyOne, setCurrencyOne] = useState('USD');
   const [currencyTwo, setCurrencyTwo] = useState('ILS');
   const [inputTwo, setInputTwo] = useState('');
@@ -54,19 +54,19 @@ const useCurrencyConverter = () => {
   };
 
   return {
-        currencyOne,
-        currencyTwo,
-        inputTwo,
-        rate,
-        show,
-        inputOneRef,
-        setCurrencyTwo,
-        handleAmountOneChange,
-        handleAmountTwoChange,
-        handleCurrencyOneChange,
-        handleSwapClick,
-        handleClearClick,
-      }
+    currencyOne,
+    currencyTwo,
+    inputTwo,
+    rate,
+    show,
+    inputOneRef,
+    setCurrencyTwo,
+    handleAmountOneChange,
+    handleAmountTwoChange,
+    handleCurrencyOneChange,
+    handleSwapClick,
+    handleClearClick,
+  };
 };
 
 export default useCurrencyConverter;

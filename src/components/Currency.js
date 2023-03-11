@@ -1,6 +1,6 @@
 import { CurrenciesList } from './';
 
-const Currency = ({ currencies, currency, handleSelectOnChange, handleInputOnChange, inputRef = null, value }) => {
+const Currency = ({ currencies, currency, handleSelectOnChange, handleInputOnChange, inputRef = null, value, isDisabled }) => {
   return (
     <div className="currency">
 
@@ -10,7 +10,7 @@ const Currency = ({ currencies, currency, handleSelectOnChange, handleInputOnCha
         currencies={currencies}
       />
 
-      <input type="number" value={value} ref={inputRef && inputRef} onChange={handleInputOnChange} placeholder="0" />
+      <input type="number" value={value} ref={inputRef && inputRef} onChange={handleInputOnChange} placeholder="0" disabled={isDisabled} />
     </div>
   );
 };

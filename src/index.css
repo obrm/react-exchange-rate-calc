@@ -39,6 +39,7 @@ p {
   border-radius: 5px;
   font-size: 16px;
   padding: 15px 18px;
+  min-width: 81px;
   border: none;
   transition: all 0.3s ease-in-out;
 }
@@ -47,7 +48,6 @@ p {
   background-color: transparent;
   color: var(--primary-color);
   border: 1px solid var(--primary-color);
-  min-width: 81px;
   display: none;
 }
 
@@ -58,6 +58,7 @@ p {
 .btn:hover {
   opacity: 0.8;
   color: #000;
+  font-weight: 600;
 }
 
 input[type="number"]:disabled {

@@ -36,12 +36,14 @@ const CurrencyConverter = () => {
           value={inputOneRef.current}
           inputRef={inputOneRef}
           handleInputOnChange={handleAmountOneChange}
+          isDisabled={false}
         />
 
         <div className="swap-rate-container">
           <Button clickHandler={handleSwapClick}>
             החלפה
           </Button>
+          
           <div className="rate" id="rate" dir="ltr">{rate}</div>
         </div>
 
@@ -51,6 +53,7 @@ const CurrencyConverter = () => {
           currencies={CURRENCIES_2}
           value={inputTwo}
           handleInputOnChange={handleAmountTwoChange}
+          isDisabled={true}
         />
         
         <Button className={`btn-transparent ${show && 'show'}`} clickHandler={handleClearClick} >ניקוי</Button>
